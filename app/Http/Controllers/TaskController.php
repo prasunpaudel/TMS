@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\task;
+use App\Http\Controllers\TaskController;
 
 class TaskController extends Controller
 {
@@ -12,7 +13,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks=Task::paginate(10);
+        $tasks=Task::all();
         return view('tasks.index', compact('tasks'));
     }
 
@@ -21,7 +22,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return view('tasks.create');
     }
 
     /**
@@ -29,7 +30,12 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $company = new Task();
+        $company->name=$request->input('name');
+        $company->email=$request->input('email');
+        $company->save();
+        
+        return response()->json(['message'=>'task completed sucessfully ']);
     }
 
     /**
@@ -62,5 +68,23 @@ class TaskController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function ajexFletch(){
+        return view('tasks.ajexfletch');
+    }
+    public function ajexFletchdata(){
+        $data=[
+            [
+                'name' => 'sagar',
+                'email' => 'sagr@gmail.com',
+                'phone' => 'asd',
+            ],
+            [
+                'name' => 'sasd',
+                'email' => 'asdfa@asdfa',
+                'phone' => 'asdfasd',
+            ]
+        ];
+        return response()->json($data);
     }
 }

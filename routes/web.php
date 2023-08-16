@@ -16,3 +16,11 @@ use App\Http\Controllers\TaskController;
 
 
 Route::resource('/tasks',TaskController::class);
+Route::get('/create', [TaskController::class, 'create'])->name('create');
+Route::post('/create', [TaskController::class, 'store'])->name('store');
+Route::get('/ajexfletch',[TaskController::class, 'ajexFletch'])->name('ajexFletch'); 
+Route::get('/ajexfletchdata',[TaskController::class, 'ajexFletchdata'])->name('ajexFletchdata'); 
+
+Route::get('/test',function(){
+    return view ('test');
+});
