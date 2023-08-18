@@ -72,19 +72,12 @@ class TaskController extends Controller
     public function ajexFletch(){
         return view('tasks.ajexfletch');
     }
-    public function ajexFletchdata(){
-        $data=[
-            [
-                'name' => 'sagar',
-                'email' => 'sagr@gmail.com',
-                'phone' => 'asd',
-            ],
-            [
-                'name' => 'sasd',
-                'email' => 'asdfa@asdfa',
-                'phone' => 'asdfasd',
-            ]
-        ];
-        return response()->json($data);
-    }
+    
+public function ajexFletchdata()
+{
+    $data = [
+        'datas' => Task::all()
+    ];
+    return response()->json($data);
+}
 }

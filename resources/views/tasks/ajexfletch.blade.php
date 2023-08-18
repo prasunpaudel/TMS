@@ -7,30 +7,39 @@
     <title>Document</title>
 </head>
 <body>
-    
     <button id="getdata">Get</button>
-    <div id="container"></div>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody id="container"></tbody>
+    </table>
     
-    {{-- ajax --}}
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function(){
             $('#getdata').click(function(){
                 $.ajax({
-                    type:'get',
-                    url:'{{ route("ajexFletchdata") }}',
-                    dataType:"json",
-
-                    success:function(data){
+                    type: 'get',
+                    url: '{{ route("ajexFletchdata") }}',
+                    dataType: 'json',
+    
+                    success: function(response) {
                         let dataContainer = $("#container");
                         dataContainer.empty();
-
-                        data.forEach(function(el) {
-                            dataContainer.append('<p>'+ el.name +'<p>');
-                            dataContainer.append('<p>'+ el.email +'<p>');
+    
+                        response.datas.forEach(function(task) {
+                            // Create a table row for each task with the task's ID as the row ID
+                            let row = $('<tr>').attr('id', 'task-' + task.id);
+                            row.append($('<td>').text(task.name));
+                            row.append($('<td>').text(task.email));
+                            dataContainer.append(row);
                         });
                     },
-                    error:function(error){
+                    error: function(error) {
                         console.error(error);
                     }
                 });
